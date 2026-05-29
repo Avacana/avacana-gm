@@ -1,0 +1,34 @@
+[package]
+name = "avacana-gm"
+version = "0.1.0"
+edition = "2021"
+description = "Standalone, embeddable Git operations via libgit2 — clone/fetch/push/commit/branch/merge, layered auth chain and async support"
+authors = ["Avacana Dhatu Team"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/Avacana/avacana-gm"
+keywords = ["git", "libgit2", "git2", "vcs", "version-control"]
+categories = ["development-tools", "api-bindings"]
+exclude = [
+    ".current.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "rust-rules.md",
+]
+
+[lib]
+name = "avacana_gm"
+path = "src/lib.rs"
+
+[features]
+default = []
+trace_logs = []
+
+[dependencies]
+base64 = "0.22"
+dirs = "5"
+git2 = { version = "0.20.2", default-features = false, features = ["https", "ssh", "vendored-libgit2", "vendored-openssl"] }
+glob = "0.3.3"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "process", "io-util", "io-std", "time", "fs", "net"] }
+tracing = { version = "0.1", features = ["release_max_level_off"] }
+uuid = { version = "1", features = ["v4"] }
