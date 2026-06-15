@@ -1,7 +1,7 @@
 [package]
 name = "avacana-gm"
-version = "0.1.0"
-edition = "2021"
+version = "0.1.1"
+edition = "2024"
 description = "Standalone, embeddable Git operations via libgit2 — clone/fetch/push/commit/branch/merge, layered auth chain and async support"
 authors = ["Avacana Dhatu Team"]
 license = "MIT"
