@@ -246,6 +246,13 @@ authentication, concurrency and locking, error handling, the Cargo features, and
 
 ## License
 
-Distributed under the [MIT](LICENSE) license.
+`avacana-gm` is distributed under the [MIT](LICENSE) license.
+
+It links against native libraries under their own terms — most notably **libgit2**
+(GPL-2.0 *with a linking exception*) and **OpenSSL** (Apache-2.0). The linking
+exception lets MIT-licensed and proprietary software link libgit2 freely; if you
+redistribute compiled artifacts, see **[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)**
+for the attribution and source-availability obligations that apply to those bundled
+libraries.
 
 Copyright (c) 2026 Avacana Dhatu Team

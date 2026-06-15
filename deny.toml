@@ -1,0 +1,56 @@
+[graph]
+all-features = true
+
+[advisories]
+db-urls = ["https://github.com/rustsec/advisory-db"]
+ignore = []
+
+[licenses]
+# cargo-deny checks each crate's DECLARED license (the `license` field in its
+# Cargo.toml), not vendored C sources. libgit2 (GPL-2.0 WITH a linking exception)
+# ships inside the `libgit2-sys` crate, which itself declares MIT, so GPL never
+# surfaces here — libgit2 compatibility comes from its linking exception, not from
+# this check.
+confidence-threshold = 0.9
+# Broad permissive allowlist so adding an ordinary dependency won't break the check;
+# `unused-allowed-license = "allow"` silences "license was not encountered" warnings
+# for entries not currently in the tree (kept for future deps).
+unused-allowed-license = "allow"
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Zlib",
+    "Unicode-3.0",
+    # Weak, file-level copyleft — safe to depend on unmodified; combining with other
+    # licenses is explicitly permitted. Pulled in via dirs -> dirs-sys -> option-ext.
+    "MPL-2.0",
+]
+
+[bans]
+multiple-versions = "allow"
+wildcards = "deny"
+# TrapDoor supply-chain campaign (Socket, 2026-05-22): a malicious build.rs scans
+# for local keystores, XOR-encrypts them with a hardcoded key, and exfiltrates to
+# GitHub Gists.
+# Source: https://thehackernews.com/2026/05/trapdoor-supply-chain-attack-spreads.html
+# NOTE: this list is useless until `cargo deny check bans` runs automatically
+# (git hook / cargo wrapper / CI) — see trapdoor-guard.
+deny = [
+  { name = "move-analyzer-build" },
+  { name = "move-compiler-tools" },
+  { name = "move-project-builder" },
+  { name = "sui-framework-helpers" },
+  { name = "sui-move-build-helper" },
+  { name = "sui-sdk-build-utils" },
+]
+skip = []
+
+[sources]
+unknown-registry = "warn"
+unknown-git = "warn"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []
